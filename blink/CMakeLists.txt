@@ -16,6 +16,8 @@ else()
     set(USERHOME $ENV{HOME})
 endif()
 
+
+
 if(DEFINED ENV{PICO_SDK_PATH})
     set(PICO_SDK_PATH $ENV{PICO_SDK_PATH})
 else()
@@ -78,4 +80,8 @@ target_include_directories(testing PRIVATE
   ${CMAKE_CURRENT_LIST_DIR}/.. # for our common lwipopts or any other standard includes, if required
 )
 
-pico_add_extra_outputs(testing)
+if (PICO_CYW43_SUPPORTED)
+    target_link_libraries(blink pico_cyw34_arch_none)
+endif()
+
+pico_add_extra_outputs(blink)
